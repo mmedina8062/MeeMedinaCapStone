@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Mee.Models.Preference>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Choose your preferences below:</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Preferences)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.Select)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preferences)
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" name="operation" id="submit" value="Submit Selected" />
+
+    <script>
+        $(document).on("click", "[type='checkbox']", function (e) {
+            if (this.checked) {
+                $(this).attr("value", "true");
+            } else {
+                $(this).attr("value", "false");
+            }
+
+        });
+    </script>
+    <div id="googleMap" style="width:100%;height:400px;"></div>
+    <script>
+        var map;
+        function initMap() {
+            var options = {
+                zoom: 8,
+                center: {lat:43.0389,lng:-87.9065}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=@APIKeys.googleAPI&callback=initMap">
+    </script>
+}
+
