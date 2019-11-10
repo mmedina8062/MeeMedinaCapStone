@@ -17,20 +17,20 @@
         @Html.HiddenFor(model => model.PreferenceID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Preferences, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Select, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Preferences, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Preferences, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Select)
+                    @Html.ValidationMessageFor(model => model.Select, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.selected, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Preferences, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.selected)
-                    @Html.ValidationMessageFor(model => model.selected, "", new { @class = "text-danger" })
-                </div>
+                @Html.EditorFor(model => model.Preferences, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Preferences, "", new { @class = "text-danger" })
             </div>
         </div>
 

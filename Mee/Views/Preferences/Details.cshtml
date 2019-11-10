@@ -11,14 +11,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Preferences)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Preferences)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Select)
         </dt>
 
@@ -26,9 +18,17 @@
             @Html.DisplayFor(model => model.Select)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Preferences)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preferences)
+        </dd>
+
     </dl>
 </div>
-<p> 
+<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PreferenceID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
