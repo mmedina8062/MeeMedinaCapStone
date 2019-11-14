@@ -2,7 +2,9 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,59 +26,91 @@ namespace Mee.Controllers
         }
 
         // GET: Parent/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Parent parent = context.Parents.Find(id);
+            if (parent == null)
+            {
+                return HttpNotFound();
+            }
+            return View(parent);
         }
 
         // GET: Parent/Create
         public ActionResult Create()
         {
-            return View();
+            Parent parent = new Parent();
+            return View(parent);
         }
 
         // POST: Parent/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Parent parent)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                parent.ApplicationId = User.Identity.GetUserId();
+                context.Parents.Add(parent);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception Error)
             {
-                return View();
+                return View(Error);
             }
         }
 
         // GET: Parent/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Parent parent = context.Parents.Find(id);
+            if (parent == null)
+            {
+                return HttpNotFound();
+            }
+            return View(parent);
         }
 
         // POST: Parent/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Parent parent)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            if (ModelState.IsValid)
+                try
+                {
+                    // TODO: Add update logic here
+                    context.Entry(parent).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View(HttpNotFound());
+                }
+            return View(parent);
         }
 
         // GET: Parent/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Parent deletedparent = context.Parents.Find(id);
+            if (deletedparent == null)
+            {
+                return HttpNotFound();
+            }
+            return View(deletedparent);
         }
 
         // POST: Parent/Delete/5
@@ -85,13 +119,14 @@ namespace Mee.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                Parent deletedparent = context.Parents.Find(id);
+                context.Parents.Remove(deletedparent);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(HttpNotFound());
             }
         }
     }
