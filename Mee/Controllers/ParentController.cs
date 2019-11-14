@@ -22,8 +22,8 @@ namespace Mee.Controllers
         {
             ViewBag.UserId = User.Identity.GetUserId();
             var parent = context.Parents.ToList();
-            return View();
-        }
+            return View(parent);
+        } 
 
         // GET: Parent/Details/5
         public ActionResult Details(int? id)
@@ -58,9 +58,9 @@ namespace Mee.Controllers
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception Error)
+            catch
             {
-                return View(Error);
+                return HttpNotFound();
             }
         }
 

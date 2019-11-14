@@ -3,37 +3,90 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+    .text {
+        color: black;
+    }
+</style>
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Select)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preferences)
-        </th>
-        <th></th>
-    </tr>
+<form method="post" action="">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Select)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preferences)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Select)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preferences)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PreferenceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PreferenceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PreferenceID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*<div id="pref">*@
+                    @Html.CheckBoxFor(modelItem => item.Select, new { @class = "checkPref" })
+                    @*</div>*@
+                </td>
+                <td class="prefText">
+                    @Html.DisplayFor(modelItem => item.Preferences)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PreferenceID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PreferenceID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PreferenceID })
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="button" id="btnSubmit" value="Submit" />
 
-</table>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+
+        var preferences = '';
+
+        $('.checkPref').click(function () {
+            $(this).parent().siblings('.prefText').find('.text').remove();
+            if ($(this).is(':checked')) {
+                var target = $(this).parent().siblings('.prefText');
+                if (target.html().toLowerCase().includes('budget')) {
+                    $(target).append('<input type="text" name="budget" class="text" />');
+                }
+                else if (target.html().toLowerCase().includes('distance')) {
+                    $(target).append('<input type="text" name="distance" class="text distance" />');
+                }
+                if (target.html().trim().length && !target.html().toLowerCase().includes('distance') && !target.html().toLowerCase().includes('budget'))
+                    preferences += '(' + target.html().trim() + ')OR';
+            }
+        });
+
+
+        $('#btnSubmit').click(function () {
+            var distance = parseInt($('.distance').val());
+
+            // default distance
+            if (!distance)
+                distance = 1000;
+
+            var win = window.open('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.0389,-87.9065&radius=' + distance.toString() + '&keyword=' + preferences + '&key=AIzaSyDC7kvLgtRiZRiu2uWG75aWoVJDQ4XGiug', '_blank');
+            if (win) {
+                win.focus();
+            } else {
+                alert('Please allow popups');
+            }
+
+        });
+    });
+</script>
