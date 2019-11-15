@@ -1,10 +1,13 @@
 ﻿using Mee.Models;
 using Microsoft.AspNet.Identity;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -128,6 +131,68 @@ namespace Mee.Controllers
             {
                 return View(HttpNotFound());
             }
+        }
+
+        [HttpPost]
+        public ActionResult CancelOrAccept()
+        {
+            if (Sitter.Confirm == true)
+            {
+                return RedirectToAction("SendConfirmEmailToParent");
+            }
+            if (Sitter.Cancel == true)
+            {
+                return RedirectToAction("SendCancelEmailToParent");
+            }
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> SendConfirmEmailToParent(int id)
+        {
+            Sitter sitter = context.Sitters.Include(p => p.User).FirstOrDefault(p => p.Id == id);
+
+            return View(sitter);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SendConfirmEmailToParent(Sitter sitter)
+        {
+
+            var client = new SendGridClient(APIKeys.sendGridAPI);
+            var from = new EmailAddress("sittersitters10@gmail.com", "Sitters");
+            var subject = "Sitter Request Confirmed";
+            var to = new EmailAddress("parentsparent20@gmail.com");
+            var plainTextContent = "Confirmation";
+            var htmlContent = "<strong>We are excited to inform you that the Sitter has confirmed to sitter for you.  Any questions or concerns please visit our website.</strong><br />";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            var startdate = DateTime.Today;
+
+            return RedirectToAction("Index", "Home");
+        }
+        public async Task<ActionResult> SendCancelEmailToParent(int id)
+        {
+            Sitter sitter = context.Sitters.Include(p => p.User).FirstOrDefault(p => p.Id == id);
+
+            return View(sitter);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SendCancelEmailToParent(Sitter sitter)
+        {
+
+            var client = new SendGridClient(APIKeys.sendGridAPI);
+            var from = new EmailAddress("sittersitters10@gmail.com", "Sitters");
+            var subject = "Sitter Request Confirmed";
+            var to = new EmailAddress("parentsparent20@gmail.com");
+            var plainTextContent = "Not Available";
+            var htmlContent = "<strong>The Sitter you selected is not available.  Please visit our website to view a list of our sitters.  Thank you.</strong><br />";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            var startdate = DateTime.Today;
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

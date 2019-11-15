@@ -144,18 +144,17 @@ namespace Mee.Controllers
         public async Task<ActionResult> SendEmailToSitter(Sitter sitter)
         {
 
-            //string email = sitter.User.Email;
             var client = new SendGridClient(APIKeys.sendGridAPI);
             var from = new EmailAddress("parentsdatenights@gmail.com", "Parents");
             var subject = "Sitter Request";
             var to = new EmailAddress("sittersitters10@gmail.com", "Sitters");
             var plainTextContent = "Your Service Is Needed";
-            var htmlContent = "<strong>Your service is needed, please confirm or cancel</strong><input ";
+            var htmlContent = "<strong>Your service is needed, please confirm or cancel</strong><br />";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
             var startdate = DateTime.Today;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
