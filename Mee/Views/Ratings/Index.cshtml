@@ -4,10 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Ratings & Reviews</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Parent"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+
 </p>
 <table class="table">
     <tr>
@@ -35,14 +39,42 @@
             @Html.DisplayFor(modelItem => item.Comments)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RateID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RateID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RateID })
+            @if (User.IsInRole("Parent"))
+             {
+                @Html.ActionLink("Edit", "Edit", new { id = item.RateID }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.RateID })
+             }
+            @Html.ActionLink("Details", "Details", new { id = item.RateID })
         </td>
     </tr>
 }
 
 </table>
-<script type="text/javascript">
-            function add_chatinline() { var hccid = 59037510; var nt = document.createElement("script"); nt.async = true; nt.src = "https://mylivechat.com/chatinline.aspx?hccid=" + hccid; var ct = document.getElementsByTagName("script")[0]; ct.parentNode.insertBefore(nt, ct); }
-            add_chatinline();</script>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="jumbotron" style="background-image: url('../../Content/Image/datenight5.jpg');background-size: 100% 100%;">
+    <h1>
+        <br />
+        <br />
+        <br />
+        <br />
+    </h1>
+   
+</div>
+
+    <script type="text/javascript">
+        function add_chatinline() { var hccid = 59037510; var nt = document.createElement("script"); nt.async = true; nt.src = "https://mylivechat.com/chatinline.aspx?hccid=" + hccid; var ct = document.getElementsByTagName("script")[0]; ct.parentNode.insertBefore(nt, ct); }
+        add_chatinline();</script>

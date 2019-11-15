@@ -37,7 +37,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RateID }) |
+    @if (User.IsInRole("Parent"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.RateID })
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>
 <script type="text/javascript">

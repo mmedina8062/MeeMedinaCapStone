@@ -58,12 +58,19 @@
                     @Html.DisplayFor(modelItem => item.Age)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @if (User.IsInRole("Sitter"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
                 </td>
                 <td>
-                    <input type="submit" value="Select Sitter" />
+                    @if (User.IsInRole("Parent"))
+                    {
+                        <input type="submit" value="Select Sitter"/>
+                    }
+
                 </td>
             </tr>
         }

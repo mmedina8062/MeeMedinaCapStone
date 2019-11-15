@@ -27,6 +27,7 @@ namespace Mee.Models
         public int ZipCode { get; set; }
         /*public double Budget { get; set; }
         public int Miles { get; set; }*/
+        public string selectedSitter { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }

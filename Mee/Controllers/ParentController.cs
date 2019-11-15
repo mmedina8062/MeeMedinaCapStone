@@ -160,8 +160,8 @@ namespace Mee.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        
-        
+
+
         /*public ActionResult OptionToChooseSitter(Sitter sitters)
         {
             var applicationId = User.Identity.GetUserId();
@@ -179,6 +179,37 @@ namespace Mee.Controllers
 
 
             return View(sittersByZipcode);
+        }*/
+       /* public ActionResult AddSitter(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sitter selectedSitter = context.Sitters.Find(id);
+            if (selectedSitter == null)
+            {
+                return HttpNotFound();
+            }
+            return View(selectedSitter);
+        }*/
+
+       /* [HttpPost]
+        public ActionResult AddSitter(int id, Parent parent)
+        {
+            try
+            {
+                var pickedSitter = context.Sitters.Find(id);
+                //var parents = context.Parents.Find(id);
+               
+                context.Parents.Add(context.Parents.Where(p => p.selectedSitter == parent.selectedSitter).SingleOrDefault());
+                context.SaveChanges();
+                return RedirectToAction("SendEmailToSitter");
+            }
+            catch
+            {
+                return View(HttpNotFound());
+            }
         }*/
     }
 }

@@ -81,6 +81,16 @@ namespace Mee.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
+                    // Redirect to User landing page on SignIn, according to Role
+                    if ((UserManager.IsInRole(user.Id, "Parent")))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    if ((UserManager.IsInRole(user.Id, "Sitter")))
+                    {
+                        return RedirectToAction("Index", "Sitter");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -163,16 +173,25 @@ namespace Mee.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771   
                     // Send an email with this link   
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);   
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);   
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");   
-                    //Assign Role to user Here      
+                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);   
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);   
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");         
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    //Ends Here    
-                    return RedirectToAction("Index", "Users");
+
+                    /*if (User.Identity.GetUserId() != null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    if (User.IsInRole("Parent"))
+                    {
+                        return RedirectToAction("Create", "Parent");
+                    }
+                    if (User.IsInRole("Sitter"))
+                    {
+                        return RedirectToAction("Create", "Sitter");
+                    }*/
+                    
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                          .ToList(), "Name", "Name");
                 AddErrors(result);
             }
 
