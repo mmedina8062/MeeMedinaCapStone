@@ -182,8 +182,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DateNightImagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageGalleryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\PreferencesController.cs" />
@@ -226,13 +226,39 @@
     <Compile Include="Migrations\201911081604298_addedparentmodelcontrollerandviews.Designer.cs">
       <DependentUpon>201911081604298_addedparentmodelcontrollerandviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911141731436_deleteddatenightimagesmodel.cs" />
+    <Compile Include="Migrations\201911141731436_deleteddatenightimagesmodel.Designer.cs">
+      <DependentUpon>201911141731436_deleteddatenightimagesmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911141739261_addedimagemodel.cs" />
+    <Compile Include="Migrations\201911141739261_addedimagemodel.Designer.cs">
+      <DependentUpon>201911141739261_addedimagemodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911142107574_adddedimagegallery.cs" />
+    <Compile Include="Migrations\201911142107574_adddedimagegallery.Designer.cs">
+      <DependentUpon>201911142107574_adddedimagegallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911142156001_fixedtypoforimagedatetoimagedata.cs" />
+    <Compile Include="Migrations\201911142156001_fixedtypoforimagedatetoimagedata.Designer.cs">
+      <DependentUpon>201911142156001_fixedtypoforimagedatetoimagedata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911150045068_deletedimagemodelcontrollerandviews.cs" />
+    <Compile Include="Migrations\201911150045068_deletedimagemodelcontrollerandviews.Designer.cs">
+      <DependentUpon>201911150045068_deletedimagemodelcontrollerandviews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911150049415_addedmodelsforratingsandsitter.cs" />
+    <Compile Include="Migrations\201911150049415_addedmodelsforratingsandsitter.Designer.cs">
+      <DependentUpon>201911150049415_addedmodelsforratingsandsitter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DateNightImages.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageGallery.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\Preference.cs" />
+    <Compile Include="Models\Rating.cs" />
+    <Compile Include="Models\Sitter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -307,7 +333,8 @@
     <Content Include="Views\Parent\Details.cshtml" />
     <Content Include="Views\Parent\Delete.cshtml" />
     <Content Include="Views\Parent\Create.cshtml" />
-    <Content Include="Views\DateNightImages\Add.cshtml" />
+    <Content Include="Views\ImageGallery\Gallery.cshtml" />
+    <Content Include="Views\ImageGallery\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,6 +376,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911081604298_addedparentmodelcontrollerandviews.resx">
       <DependentUpon>201911081604298_addedparentmodelcontrollerandviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911141731436_deleteddatenightimagesmodel.resx">
+      <DependentUpon>201911141731436_deleteddatenightimagesmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911141739261_addedimagemodel.resx">
+      <DependentUpon>201911141739261_addedimagemodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911142107574_adddedimagegallery.resx">
+      <DependentUpon>201911142107574_adddedimagegallery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911142156001_fixedtypoforimagedatetoimagedata.resx">
+      <DependentUpon>201911142156001_fixedtypoforimagedatetoimagedata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911150045068_deletedimagemodelcontrollerandviews.resx">
+      <DependentUpon>201911150045068_deletedimagemodelcontrollerandviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911150049415_addedmodelsforratingsandsitter.resx">
+      <DependentUpon>201911150049415_addedmodelsforratingsandsitter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,29 @@
+﻿@model List<Mee.Models.ImageGallery>
+
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<h2>Gallery</h2>
+
+<p>
+    @Html.ActionLink("Upload New", "Upload")
+</p>
+<table>
+    @{ 
+        int j = 0;
+        for (int i = 0; i < Model.Count(); i+=5)
+        {
+            j = i;
+            <tr>
+                @while (j < i+5 && j < Model.Count())
+                {
+                    <td>
+                        <img src="data:image/png;base64,@Convert.ToBase64String(Model[j].imageData,0,Model[j].imageData.Length)" width="250" />
+                    </td>
+                    j++;
+                }
+            </tr>
+        }
+    }
+</table>

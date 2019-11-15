@@ -22,6 +22,9 @@ namespace Mee.Models
     {
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<Parent> Parents { get; set; }
+        public DbSet<ImageGallery> ImageGalleries { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Sitter> Sitters { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
