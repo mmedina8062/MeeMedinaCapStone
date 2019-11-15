@@ -1,0 +1,33 @@
+﻿@model Mee.Models.Sitter
+
+@{
+    ViewBag.Title = "CancelOrAccept";
+}
+
+<h2>CancelOrAccept</h2>
+@using (Html.BeginForm("SendCancelEmailToParent", "Sitter", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Cancel" />
+            </td>
+        </tr>
+    </table>
+}
+@using (Html.BeginForm("SendConfirmEmailToParent", "Sitter", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Confirm" />
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts{
+    @Scripts.Render("~/bundle/jqueryval")
+}
+

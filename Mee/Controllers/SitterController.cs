@@ -21,8 +21,12 @@ namespace Mee.Controllers
             context = new ApplicationDbContext();
         }
         // GET: Parent
-        public ActionResult Index()
+        public ActionResult Index(string searchBy, string search)
         {
+            if(searchBy == "Zip Code")
+            {
+                return View(context.Sitters.Where(s => s.ZipCode.ToString() == search).ToList());
+            }
             ViewBag.UserId = User.Identity.GetUserId();
             var sitter = context.Sitters.ToList();
             return View(sitter);
@@ -132,9 +136,13 @@ namespace Mee.Controllers
                 return View(HttpNotFound());
             }
         }
-
-        [HttpPost]
         public ActionResult CancelOrAccept()
+        {
+            return View();
+        }
+
+        /*[HttpPost]
+        public ActionResult CancelOrAccept(Parent parent)
         {
             if (Sitter.Confirm == true)
             {
@@ -144,8 +152,8 @@ namespace Mee.Controllers
             {
                 return RedirectToAction("SendCancelEmailToParent");
             }
-            return RedirectToAction("Index");
-        }
+            return RedirectToAction("Index")
+        }*/
         public async Task<ActionResult> SendConfirmEmailToParent(int id)
         {
             Sitter sitter = context.Sitters.Include(p => p.User).FirstOrDefault(p => p.Id == id);
@@ -187,7 +195,7 @@ namespace Mee.Controllers
             var subject = "Sitter Request Confirmed";
             var to = new EmailAddress("parentsparent20@gmail.com");
             var plainTextContent = "Not Available";
-            var htmlContent = "<strong>The Sitter you selected is not available.  Please visit our website to view a list of our sitters.  Thank you.</strong><br />";
+            var htmlContent = "<strong>The Sitter you selected is not available.  Please visit our website to view a list of our sitters by clicking the link below.  Thank you.</strong><br /> https://localhost:44371/Sitter/index";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
             var startdate = DateTime.Today;

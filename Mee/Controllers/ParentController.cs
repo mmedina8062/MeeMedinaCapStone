@@ -25,8 +25,12 @@ namespace Mee.Controllers
         {
             ViewBag.UserId = User.Identity.GetUserId();
             var parent = context.Parents.ToList();
+
             return View(parent);
-        } 
+
+        }
+
+
 
         // GET: Parent/Details/5
         public ActionResult Details(int? id)
@@ -149,12 +153,32 @@ namespace Mee.Controllers
             var subject = "Sitter Request";
             var to = new EmailAddress("sittersitters10@gmail.com", "Sitters");
             var plainTextContent = "Your Service Is Needed";
-            var htmlContent = "<strong>Your service is needed, please confirm or cancel</strong><br />";
+            var htmlContent = "<strong>Your service is needed, please confirm or cancel</strong><br /> https://localhost:44371/Sitter/CancelOrAccept";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
             var startdate = DateTime.Today;
 
             return RedirectToAction("Index", "Home");
         }
+        
+        
+        /*public ActionResult OptionToChooseSitter(Sitter sitters)
+        {
+            var applicationId = User.Identity.GetUserId();
+            Parent parent = context.Parents.Where(p => p.ApplicationId == applicationId).FirstOrDefault();
+            var loggedInParent = context.Parents.Where(p => p.ZipCode == sitters.ZipCode);
+            List<Sitter> sittersByZipcode = new List<Sitter>();
+            
+            foreach (Sitter sitter in sittersByZipcode)
+            if (parent.ZipCode == sitter.ZipCode) //.Where(p => p.ZipCode == sitter.ZipCode))
+            {
+                    sittersByZipcode.Add(sitter);
+            }
+            
+            
+
+
+            return View(sittersByZipcode);
+        }*/
     }
 }

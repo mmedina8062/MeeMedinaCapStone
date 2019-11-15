@@ -11,11 +11,8 @@
         color: black;
     }
 </style>
-<h2>Index</h2>
+<h2>Choose Your Preference(s) Below</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <form method="post" action="">
     <table class="table">
         <tr>
@@ -39,17 +36,26 @@
                 <td class="prefText">
                     @Html.DisplayFor(modelItem => item.Preferences)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PreferenceID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.PreferenceID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PreferenceID })
-                </td>
             </tr>
         }
     </table>
     <input type="button" id="btnSubmit" value="Submit" />
 
 </form>
+<br />
+<br />
+
+<h3>
+    Do you need a Sitter?
+</h3>
+@using (Html.BeginForm("Index", "Sitter"))
+{
+    <input type="submit" value="Yes" />
+}
+@using (Html.BeginForm("Index", "Home"))
+{
+    <input type="submit" value="No" />
+}
 
 
 <script>

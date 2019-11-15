@@ -301,6 +301,14 @@
     <Compile Include="Migrations\201911150258017_updatedsittermodeltoreadduser.Designer.cs">
       <DependentUpon>201911150258017_updatedsittermodeltoreadduser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911150445045_updatedmodelforgotwhichone.cs" />
+    <Compile Include="Migrations\201911150445045_updatedmodelforgotwhichone.Designer.cs">
+      <DependentUpon>201911150445045_updatedmodelforgotwhichone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911150551500_deletedindexviewforparentandcreated.cs" />
+    <Compile Include="Migrations\201911150551500_deletedindexviewforparentandcreated.Designer.cs">
+      <DependentUpon>201911150551500_deletedindexviewforparentandcreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -397,10 +405,12 @@
     <Content Include="Views\Sitter\Details.cshtml" />
     <Content Include="Views\Sitter\Delete.cshtml" />
     <Content Include="Views\Sitter\Create.cshtml" />
-    <Content Include="Views\Parent\Index.cshtml" />
     <Content Include="Views\Parent\Edit.cshtml" />
     <Content Include="Views\Parent\Details.cshtml" />
     <Content Include="Views\Parent\Delete.cshtml" />
+    <Content Include="Views\Sitter\CancelOrAccept.cshtml" />
+    <Content Include="Views\Parent\OptionToChooseSitter.cshtml" />
+    <Content Include="Views\Parent\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,6 +479,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911150258017_updatedsittermodeltoreadduser.resx">
       <DependentUpon>201911150258017_updatedsittermodeltoreadduser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911150445045_updatedmodelforgotwhichone.resx">
+      <DependentUpon>201911150445045_updatedmodelforgotwhichone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911150551500_deletedindexviewforparentandcreated.resx">
+      <DependentUpon>201911150551500_deletedindexviewforparentandcreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

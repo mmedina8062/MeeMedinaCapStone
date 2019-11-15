@@ -9,6 +9,14 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @using (Html.BeginForm("Index", "Sitter", FormMethod.Get))
+    {
+    <b>Search By:</b> @Html.RadioButton("searchBy", "Zip Code", true) <text>ZipCode</text>
+    @Html.TextBox("search") <input type="submit" value="Search" />
+    }
+</p>
+
 @using (Html.BeginForm("SendEmailToSitter", "Parent", FormMethod.Post))
 {
     <table class="table">
@@ -30,7 +38,7 @@
             </th>
             <th></th>
         </tr>
-        
+
         @foreach (var item in Model)
         {
             <tr>
@@ -58,7 +66,14 @@
                     <input type="submit" value="Select Sitter" />
                 </td>
             </tr>
-         }
+        }
 
     </table>
+}
+
+@if (User.IsInRole("Parent"))
+{
+    <script type="text/javascript">
+            function add_chatinline() { var hccid = 59037510; var nt = document.createElement("script"); nt.async = true; nt.src = "https://mylivechat.com/chatinline.aspx?hccid=" + hccid; var ct = document.getElementsByTagName("script")[0]; ct.parentNode.insertBefore(nt, ct); }
+            add_chatinline();</script>
 }
