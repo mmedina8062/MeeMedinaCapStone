@@ -21,7 +21,7 @@ namespace Mee.Controllers
         public ActionResult Index()
         {
             ViewBag.UserId = User.Identity.GetUserId();
-            var sitter = context.Parents.ToList();
+            var sitter = context.Sitters.ToList();
             return View(sitter);
         }
 

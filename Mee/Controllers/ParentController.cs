@@ -1,10 +1,13 @@
 ﻿using Mee.Models;
 using Microsoft.AspNet.Identity;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -128,6 +131,31 @@ namespace Mee.Controllers
             {
                 return View(HttpNotFound());
             }
+        }
+        public async Task<ActionResult> SendEmailToSitter(int id)
+        {
+            Sitter sitter = context.Sitters.Include(p => p.User).FirstOrDefault(p => p.Id == id);
+
+            return View(sitter);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SendEmailToSitter(Sitter sitter)
+        {
+
+            //string email = sitter.User.Email;
+            var client = new SendGridClient(APIKeys.sendGridAPI);
+            var from = new EmailAddress("parentsdatenights@gmail.com", "Parents");
+            var subject = "Sitter Request";
+            var to = new EmailAddress("sittersitters10@gmail.com", "Sitters");
+            var plainTextContent = "Your Service Is Needed";
+            var htmlContent = "<strong>Your service is needed, please confirm or cancel</strong><input ";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            var startdate = DateTime.Today;
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Mee.Models
         public int ZipCode { get; set; }
         public string Details { get; set; }
         public int Age { get; set; }
+        public bool CancelOrAccept { get; set; }
 
         [ForeignKey("User")]
         public string UserId { get; set; }
